@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.soecode.lyf.dao.NextboxMapper" >
+  <resultMap id="BaseResultMap" type="com.soecode.lyf.entity.Nextbox" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="adminId" property="adminid" jdbcType="VARCHAR" />
+    <result column="groupName" property="groupname" jdbcType="VARCHAR" />
+    <result column="lic" property="lic" jdbcType="VARCHAR" />
+    <result column="lan" property="lan" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="greatTime" property="greattime" jdbcType="TIMESTAMP" />
+    <result column="isEnable" property="isenable" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, adminId, groupName, lic, lan, phone, greatTime, isEnable
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_nextbox
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_nextbox
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.lyf.entity.Nextbox" >
+    insert into db_nextbox (id, adminId, groupName, 
+      lic, lan, phone, greatTime, 
+      isEnable)
+    values (#{id,jdbcType=INTEGER}, #{adminid,jdbcType=VARCHAR}, #{groupname,jdbcType=VARCHAR}, 
+      #{lic,jdbcType=VARCHAR}, #{lan,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{greattime,jdbcType=TIMESTAMP}, 
+      #{isenable,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.lyf.entity.Nextbox" >
+    insert into db_nextbox
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="adminid != null" >
+        adminId,
+      </if>
+      <if test="groupname != null" >
+        groupName,
+      </if>
+      <if test="lic != null" >
+        lic,
+      </if>
+      <if test="lan != null" >
+        lan,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="greattime != null" >
+        greatTime,
+      </if>
+      <if test="isenable != null" >
+        isEnable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adminid != null" >
+        #{adminid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupname != null" >
+        #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="lic != null" >
+        #{lic,jdbcType=VARCHAR},
+      </if>
+      <if test="lan != null" >
+        #{lan,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="greattime != null" >
+        #{greattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isenable != null" >
+        #{isenable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.lyf.entity.Nextbox" >
+    update db_nextbox
+    <set >
+      <if test="adminid != null" >
+        adminId = #{adminid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupname != null" >
+        groupName = #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="lic != null" >
+        lic = #{lic,jdbcType=VARCHAR},
+      </if>
+      <if test="lan != null" >
+        lan = #{lan,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="greattime != null" >
+        greatTime = #{greattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isenable != null" >
+        isEnable = #{isenable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="java.lang.String" >
+    update db_nextbox
+    set adminId = #{adminid,jdbcType=VARCHAR},
+      groupName = #{groupname,jdbcType=VARCHAR},
+      lic = #{lic,jdbcType=VARCHAR},
+      lan = #{lan,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      greatTime = #{greattime,jdbcType=TIMESTAMP},
+      isEnable = #{isenable,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll"   resultType="com.soecode.lyf.entity.Nextbox" parameterType="java.lang.String" >
+   select  *  from db_nextbox where adminId = #{adminid,jdbcType=VARCHAR}
+  </select>
+ 
+</mapper>
