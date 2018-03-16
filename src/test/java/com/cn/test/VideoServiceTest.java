@@ -27,7 +27,7 @@ public class VideoServiceTest extends BaseTest {
 //		logger.debug("查找结果" + a);
 		
 		Map<String, Object> map= new HashMap<String, Object>();
-	    map.put("videoname", "");
+	    map.put("videoname", "电饭锅");
 	    map.put("adminid", "1");
 		map.put("pageSize", 0);
 		map.put("currentPage", 5);

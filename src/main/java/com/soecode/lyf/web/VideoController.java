@@ -94,20 +94,34 @@ public class VideoController{
     	String search= request.getParameter("search[value]");
         int countAdmin=videoService.totalVideo(search);
         
-        Map<String, Object> videomap= new HashMap<String, Object>();
-        videomap.put("videoname", search);
-        videomap.put("pageSize", start);
-        videomap.put("currentPage", length);
-		List<Video> listadmin=videoService.selectByVideoName(videomap);
-		
-		adminlisTableDataSource.setData(listadmin);
-		adminlisTableDataSource.setDraw(draw);
-		adminlisTableDataSource.setRecordsFiltered(countAdmin);
-		adminlisTableDataSource.setRecordsTotal(countAdmin);
-		
+        Admin admin=(Admin)session.getAttribute("admin");
+        String adminid=admin.getId()+"";
+        String adminid1="";
+        if(admin.getType()==1){
+	        Map<String, Object> videomap= new HashMap<String, Object>();
+	        videomap.put("videoname", search);
+	        videomap.put("adminid", adminid1);
+	        videomap.put("pageSize", start);
+	        videomap.put("currentPage", length);
+			List<Video> listadmin=videoService.selectByVideoName(videomap);
+			adminlisTableDataSource.setData(listadmin);
+			adminlisTableDataSource.setDraw(draw);
+			adminlisTableDataSource.setRecordsFiltered(countAdmin);
+			adminlisTableDataSource.setRecordsTotal(countAdmin);
+        }else if (admin.getType()==2) {
+        	Map<String, Object> videomap= new HashMap<String, Object>();
+ 	        videomap.put("videoname", search);
+ 	        videomap.put("adminid", adminid);
+ 	        videomap.put("pageSize", start);
+ 	        videomap.put("currentPage", length);
+ 			List<Video> listadmin=videoService.selectByVideoName(videomap);
+ 			adminlisTableDataSource.setData(listadmin);
+ 			adminlisTableDataSource.setDraw(draw);
+ 			adminlisTableDataSource.setRecordsFiltered(countAdmin);
+ 			adminlisTableDataSource.setRecordsTotal(countAdmin);
+		}
+        
 		return adminlisTableDataSource;
-	
-    	
     }
     @RequestMapping("/deletbykey")
     @ResponseBody

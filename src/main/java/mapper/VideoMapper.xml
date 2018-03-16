@@ -121,6 +121,6 @@
 		 WHERE videoName LIKE '%${videoname}%'   
   </select>
   <select id="selectByVideoName" parameterType="map"  resultMap="BaseResultMap">
-  	 SELECT * FROM db_video  where  videoName LIKE '%${videoname}%'  limit #{pageSize},#{currentPage}
+  	 SELECT * FROM db_video  where adminId LIKE '%${adminid}%' and videoName LIKE '%${videoname}%'  limit #{pageSize},#{currentPage}
   </select>
 </mapper>

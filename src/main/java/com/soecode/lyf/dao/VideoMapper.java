@@ -23,4 +23,6 @@ public interface VideoMapper {
     int totalVideo(@Param("videoname") String videoname);
     
     List<Video> selectByVideoName(Map<String, Object> videomap);
+    
+    List<Video> selectByVideoadmin(Map<String, Object> videomap);
 }
