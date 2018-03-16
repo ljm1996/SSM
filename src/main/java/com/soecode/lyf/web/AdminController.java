@@ -61,12 +61,14 @@ public class AdminController {
 	    @RequestMapping("/checklogin")
 	    public @ResponseBody int checklogin(String username,String password ,HttpServletRequest request){
 	        Admin loginType = adminService.login(username,password);
-	        request.getSession().setAttribute("admin", loginType);     
-	        if(loginType!=null){
+	        request.getSession().setAttribute("admin", loginType); 
+	        if(loginType.getIsenable()==0){
 	            return 200;
-	        }else{
-	           return 400;
-	        }
+	        }else if(loginType.getIsenable()==1){
+	           return 100;
+	        }else {
+	        	return 400;
+			}
 	    }
 	   
 }

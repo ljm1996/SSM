@@ -27,5 +27,10 @@ public class ScreenServiceImpl implements ScreenService {
 		// TODO Auto-generated method stub
 		return screenmapper.updateByPrimaryKeySelective(screen);
 	}
+	@Override
+	public int deletbyscreenid(Integer id) {
+		// TODO Auto-generated method stub
+		return screenmapper.deleteByPrimaryKey(id);
+	}
 
 }

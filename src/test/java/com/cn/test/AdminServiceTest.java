@@ -14,9 +14,9 @@ public class AdminServiceTest  extends BaseTest{
 	@Test 
 	  public void countadmin(){
 		
-       
-      Admin admin=adminMapper.selectadminByaccount("admin", "123456");
-      System.out.println(admin.getVer());
+//       
+//      Admin admin=adminMapper.selectadminByaccount("admin", "123456");
+//      System.out.println(admin.getVer());
 		
 //		int a=adminMapper.coonutadmin("小花");
 //		Map<String, Object> map= new HashMap<String, Object>();
@@ -27,6 +27,8 @@ public class AdminServiceTest  extends BaseTest{
 //		List<Admin> listadmin=adminMapper.selectAdminByAdminName(map);
 		//logger.debug("查找结果" + a);
 		//logger.debug("admin结果" + listadmin);
+//		Admin admin=adminMapper.selectbyaccount("ljm1996");
+//		System.out.println(admin.getIsenable());
 	}
 //	@Test
 //	public void deletbyid(){
@@ -34,6 +36,7 @@ public class AdminServiceTest  extends BaseTest{
 //        System.out.println(admin);
 //	}
 //	
+	
 	
 	
 }

@@ -32,9 +32,14 @@ public class ScreenController {
 	}
 	@RequestMapping("/updatescreenbyid")
 	@ResponseBody
-	public int updatescreenbyid(Screen screen,Integer screenid,String pix){
+	public int updatescreenbyid(Screen screen){
 		return screenService.updatescreenbyid(screen);
 		
+	}
+	@RequestMapping("/deletbyscreenid")
+	@ResponseBody
+	public int deletbyscreenid(Integer screenid){
+		return screenService.deletbyscreenid(screenid);
 	}
 	
 

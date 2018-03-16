@@ -28,4 +28,5 @@ public interface AdminMapper {
 	
 	int coonutadmin(@Param("name") String adminName);
 	
+	
 }

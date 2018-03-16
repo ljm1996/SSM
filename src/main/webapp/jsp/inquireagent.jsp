@@ -91,15 +91,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		//指定第最后一列
 		        targets: 4,
 		        render: function(data, type, row, meta) {
-		                    return '<button type="button" class="btn btn-default" onclick=\'showAjaxModal("'+row.id+'","'+row.ver+'","'+row.name+'","'+row.phone+'","'+row.account+'","'+row.passwrod+'")\'>修改</button>&nbsp&nbsp<button type="button" class="btn btn-danger"  onclick="deletbyid('+data+', this)" >禁用</button>';
+		                    return '<button type="button" class="btn btn-default" onclick=\'showAjaxModal("'+row.id+'","'+row.ver+'","'+row.name+'","'+row.phone+'","'+row.account+'","'+row.passwrod+'")\'>修改</button>&nbsp&nbsp<button type="button" class="btn btn-danger"  onclick=\'disableagent("'+row.id+'","'+row.isenable+'")\' >禁用</button>';
 		        	}
 		    	}
 			    	],
             });
         } );
+   function disableagent(id,isenable){
+   		alert(id+"  "+isenable);
+   }   
    function deletbyid(adminid, that) {
-  if (window.confirm('你确定删除吗？')) {
-     		$.ajax({
+	  if (window.confirm('你确定删除吗？')) {
+	     		$.ajax({
 						url: '${pageContext.request.contextPath}/admin/deletbyId',
 						method: 'POST',
 						dataType: 'json',

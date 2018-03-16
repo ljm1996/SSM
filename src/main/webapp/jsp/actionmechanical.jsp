@@ -151,7 +151,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 	function tiaozhuan(machineid){
-	   alert(machineid);
 	   location.href="../jsp/addScreentb.jsp?"+"date="+machineid;
 	}
    	</script>

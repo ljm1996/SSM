@@ -162,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="page-container"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
 	<div class="main-content">				
 					
-		<h2>查询代理商</h2>
+		<h2>查询机器</h2>
 		
 		<br />
 				

@@ -23,24 +23,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="../assets/css/custom.css">
 	<script src="../assets/js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
-		jQuery(function($) {  
+		jQuery(function($) { 
 			  var loc = location.href;
 			  var n1 = loc.length;//地址的总长度
 			  var n2 = loc.indexOf("=");//取得=号的位置
 			  var id = decodeURI(loc.substr(n2+1, n1-n2));//从=号后面的内容	  
 			  $.ajax({
 						url:'${pageContext.request.contextPath}/screen/selectbymachienid',
-						method:'post',
-						data:{
+  						data:{
 						 machineid:id
 						},
 						success: function(data){
 							$('#tablebody').empty();
 							for(var i=0;i<data.length;i++){
 									$('#tablebody').append("<tr><td>"+data[i].pix+"</td><td>"
-									+"<button type='button' class='btn btn-default' onclick='showAjaxModal()'>修改</button>"
-									+"&nbsp<button type='button' class='btn btn-danger'>删除</button>"
-									+"&nbsp<button type='button' class='btn btn-blue'>添加视频</button>"
+									+"<button type='button' class='btn btn-default' onclick=\"showAjaxModal('"+data[i].id+"','"+data[i].pix+"')\">修改</button>"
+									+"&nbsp<button type='button' class='btn btn-danger' onclick=\"deletbyscreenif('"+data[i].id+"')\">删除</button>"
+									+"&nbsp<button type='button' class='btn btn-blue' onclick='addvideo()'>添加视频</button>"
 									+"&nbsp<button type='button' class='btn btn-blue'>管理视频</button></td></tr>");		
 								
 								}
@@ -50,7 +49,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    }
 						});
 		     
-		});  
+		});
+		function addvideo(){
+		   location.href="../jsp/choesVido.jsp"
+		}
+		function deletbyscreenif(screenid){
+		 if (window.confirm('你确定删除吗？')) {
+			    $.ajax({
+						url:'${pageContext.request.contextPath}/screen/deletbyscreenid',
+						method:'post',
+						data:{
+							screenid:screenid,
+						},　
+						success: function(response){
+									alert("删除成功！");
+									location.reload(true)
+								},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+						      alert(XMLHttpRequest.status); 
+						    }
+						});    
+					}else{
+						alert("取消");
+					}                     
+		}  
 		function addscreen(){
 		 	  var loc = location.href;
 			  var n1 = loc.length;//地址的总长度
@@ -79,12 +101,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						});
 			  }
 		}
-	function showAjaxModal()
+	function showAjaxModal(screenid,pix)
 		{
-		alert("12361");
 		  
+		    $('#goupingId').val(screenid);
+		    $('#Pix').val(pix);
+		      $('#hiddenid').hide();
 			jQuery('#modal-6').modal('show', {backdrop: 'static'});
-			
 			jQuery.ajax({
 				url: "data/ajax-content.txt",
 				success: function(response)
@@ -93,6 +116,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 		}
+	function updatescreen(){
+		$.ajax({
+					url:'${pageContext.request.contextPath}/screen/updatescreenbyid',
+					method:'post',
+					data:$('#updatescreenfrom').serialize(),　
+					success: function(response){
+							alert("修改成功！");
+							$('#pix').empty();
+							location.reload(true);	
+								},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						      alert(XMLHttpRequest.status); 
+						    }
+						});
+	}
 	</script>
 </head>
 <body class="page-body" data-url="http://www.poandsoul.com">
@@ -160,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	          <h3 class="modal-title">修改组名</h3>
 	        </div>
-	        <form id="updategroupingfrom">
+	        <form id="updatescreenfrom">
 	        <div class="modal-body">
 	          <div class="row">
 	            <div class="col-md-12" >

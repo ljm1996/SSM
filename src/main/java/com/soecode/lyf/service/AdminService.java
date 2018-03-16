@@ -21,7 +21,5 @@ public interface AdminService {
 	
 	int updateAdmin(Admin admin);
 	
-
-  
 	
 }

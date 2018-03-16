@@ -72,14 +72,14 @@ public class NextboxServiceTest extends BaseTest {
     
 //		List<Machine> list=map1.selectbygroupingid(1);
 //		System.out.println(list.size());
-		
+//		
 //			Screen screen=new Screen();
-//			screen.setMachineid(1);
-//			screen.setPix("hyugjg");
-//			int a=map3.insertSelective(screen);
+//			screen.setId(1);
+//			screen.setPix("dsf");
+//			int a=map3.updateByPrimaryKeySelective(screen);
 //			System.out.println(a);
 		
-		List<Screen> list=map3.selectbymachineid(16);
+		List<Screen> list=map3.selectbymachineid(24);
 		System.out.println(list.size());
 		 
 		} 

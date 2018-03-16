@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li class="has-sub">
 					<a href="../forms-main.html">
 						<i class="entypo-doc-text"></i>
-						<span class="title">视屏管理</span>
+						<span class="title">视频管理</span>
 					</a>
 					<ul>
 						<li>

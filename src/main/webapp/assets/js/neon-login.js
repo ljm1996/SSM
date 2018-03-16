@@ -102,6 +102,11 @@ var neonLogin = neonLogin || {};
 							                          window.location.href = "../jsp/homepage.jsp";
 							                        }, 400);
 									}, 400);
+								}else
+								if(login_status=='100')
+								{
+									$(".login-page").removeClass('logging-in');
+									neonLogin.resetProgressBar(true);
 								}
 								
 							}, 1000);

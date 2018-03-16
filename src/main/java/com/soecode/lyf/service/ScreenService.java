@@ -8,6 +8,7 @@ public interface ScreenService {
   int insertscreen(Screen screen);
   List<Screen> selectbymachineid(Integer machineid);
   int updatescreenbyid(Screen screen);
+  int deletbyscreenid(Integer id);
   
 
 }
