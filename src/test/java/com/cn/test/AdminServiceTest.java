@@ -29,6 +29,12 @@ public class AdminServiceTest  extends BaseTest{
 		//logger.debug("admin结果" + listadmin);
 //		Admin admin=adminMapper.selectbyaccount("ljm1996");
 //		System.out.println(admin.getIsenable());
+		Admin admin=new Admin();
+		admin.setId(3);
+		admin.setIsenable(1);
+		int a=adminMapper.updateByPrimaryKeySelective(admin);
+		System.out.println(a);
+		
 	}
 //	@Test
 //	public void deletbyid(){

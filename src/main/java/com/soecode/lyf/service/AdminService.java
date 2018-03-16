@@ -16,8 +16,6 @@ public interface AdminService {
 	
 	//登入
 	public Admin login(String account,String password);
-	//用户判断
-	int updateByPrimaryKey(Admin record);
 	
 	int updateAdmin(Admin admin);
 	

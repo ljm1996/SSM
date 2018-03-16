@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.soecode.lyf.entity.Admin;
 import com.soecode.lyf.entity.Video;
 import com.soecode.lyf.service.VideoService;
 import com.soecode.lyf.util.DataTableDataSource;
@@ -27,6 +30,9 @@ import com.soecode.lyf.util.DataTableDataSource;
 public class VideoController{
 	@Autowired
 	VideoService videoService;
+	@Autowired
+	HttpSession session;
+
 	 /**  
      * 视屏上传  
      * @param file  
@@ -68,11 +74,15 @@ public class VideoController{
         videoaddress.transferTo(dir);  
         videoimg.transferTo(dir2);  
         
+        Admin admin=(Admin)session.getAttribute("admin");
+        
         //把地址存到数据库中
         Video video=new Video();
         video.setVideoname(videoname);
         video.setVideourl(addresspath1);
         video.setVideoimgurl(imgpath2);
+        video.setAdminid(admin.getId()+"");
+        	
         int pathcode=videoService.insertVideo(video) ;
         
         return pathcode;  
@@ -85,7 +95,7 @@ public class VideoController{
         int countAdmin=videoService.totalVideo(search);
         
         Map<String, Object> videomap= new HashMap<String, Object>();
-        videomap.put("name", search);
+        videomap.put("videoname", search);
         videomap.put("pageSize", start);
         videomap.put("currentPage", length);
 		List<Video> listadmin=videoService.selectByVideoName(videomap);

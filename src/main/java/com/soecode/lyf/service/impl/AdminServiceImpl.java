@@ -42,11 +42,6 @@ public class AdminServiceImpl implements AdminService{
 			return adminmp.selectadminByaccount(account, password);
 		}
 		@Override
-		public int updateByPrimaryKey(Admin record) {
-			// TODO Auto-generated method stub
-			return adminmp.updateByPrimaryKey(record);
-		}
-		@Override
 		public int updateAdmin(Admin admin) {
 			// TODO Auto-generated method stub
 			return adminmp.updateByPrimaryKeySelective(admin);

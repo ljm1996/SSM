@@ -91,41 +91,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		//指定第最后一列
 		        targets: 4,
 		        render: function(data, type, row, meta) {
-		                    return '<button type="button" class="btn btn-default" onclick=\'showAjaxModal("'+row.id+'","'+row.ver+'","'+row.name+'","'+row.phone+'","'+row.account+'","'+row.passwrod+'")\'>修改</button>&nbsp&nbsp<button type="button" class="btn btn-danger"  onclick=\'disableagent("'+row.id+'","'+row.isenable+'")\' >禁用</button>';
+		        if(row.isenable==0){
+		                    return '<button type="button" class="btn btn-default" onclick=\'showAjaxModal("'+row.id+'","'+row.ver+'","'+row.name+'","'+row.phone+'","'+row.account+'","'+row.passwrod+'")\'>修改</button>'+
+		                    '&nbsp&nbsp<input type="button" id='+row.id+' name="enablebtn" class="btn btn-danger" value="禁止" onclick=\'disableagent("'+row.id+'","'+row.isenable+'",this.value)\' ></input>';
+		                 }else if(row.isenable==1){
+		                    	return '<button type="button" class="btn btn-default" onclick=\'showAjaxModal("'+row.id+'","'+row.ver+'","'+row.name+'","'+row.phone+'","'+row.account+'","'+row.passwrod+'")\'>修改</button>'+
+		                    '&nbsp&nbsp<input type="button" id='+row.id+' name="enablebtn" class="btn btn-danger" value="启用" onclick=\'disableagent("'+row.id+'","'+row.isenable+'",this.value)\' ></input>';
+		                    }
 		        	}
 		    	}
 			    	],
             });
         } );
-   function disableagent(id,isenable){
-   		alert(id+"  "+isenable);
+   function disableagent(id,isenable,value){
+	   	if( value == '禁止' ){
+	      jQuery.ajax({
+					url: '${pageContext.request.contextPath}/admin/updatebyidisenable',
+					method:'post',
+					data:{
+						adminid:id,
+						isenable:1
+					},
+					success: function(response)
+					{
+						 document.getElementById(id).value = '启用';
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) { 
+						alert(textStatus);
+								         		
+					 }
+				});
+	     }
+	    else if(value == '启用'){
+	    
+	        jQuery.ajax({
+					url: '${pageContext.request.contextPath}/admin/updatebyidisenable',
+					method:'post',
+					data:{
+						adminid:id,
+						isenable:0
+					},
+					success: function(response)
+					{	
+						 document.getElementById(id).value = '禁止';
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) { 
+						alert("修改失败！");
+								         		
+					 }
+				});
+	     }
+   		
    }   
-   function deletbyid(adminid, that) {
-	  if (window.confirm('你确定删除吗？')) {
-	     		$.ajax({
-						url: '${pageContext.request.contextPath}/admin/deletbyId',
-						method: 'POST',
-						dataType: 'json',
-						data:{
-							adminId:adminid
-						} ,
-						error: function()
-						{
-							alert("删除失败");
-						},
-						success: function(response){
-						if(response==1){
-							alert("删除成功");	
-							    var table = $("#table_id_example").DataTable();
-	              			    table.ajax.reload();	
-						}
-							
-						}
-					});
-				}else{
-				   alert("取消");
-				}
-			}
 	function modify(id, password) {
     $.ajax({
         url: "modify.action",

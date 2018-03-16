@@ -45,13 +45,6 @@ public class AdminController {
 			adminlisTableDataSource.setRecordsTotal(countAdmin);
 			return adminlisTableDataSource;
 	    }
-	    
-	    @RequestMapping("/updatabyId")
-	    public @ResponseBody int updatabyId(Admin admin){
-	    	int code=adminService.deletbyId(admin.getId());
-			return code;
-	    	
-	    }
 	    @RequestMapping("/addagent")
 	    public @ResponseBody int addagent(Admin admin,String repassword,HttpServletRequest request){ 	
 	    	
@@ -69,6 +62,13 @@ public class AdminController {
 	        }else {
 	        	return 400;
 			}
+	    }
+	    @RequestMapping("updatebyidisenable")
+	    @ResponseBody
+	    public int updatebyidisenable(Admin admin,Integer adminid,Integer isenable){
+	    	admin.setId(adminid);
+			return adminService.updateAdmin(admin);
+	    	
 	    }
 	   
 }
