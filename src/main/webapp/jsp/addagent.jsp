@@ -48,8 +48,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						data:$('#addagentfrom').serialize(),　
 						success: function(response){
 						      if(response==1){
-									alert("新建代理商成功！");
-									 $("#addagentfrom")[0].reset();
+								alert("新建代理商成功！");
+							    $("#addagentfrom")[0].reset();
 									}
 								},
 						error : function(XMLHttpRequest, textStatus, errorThrown) { 

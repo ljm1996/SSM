@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  //使用ajax异步请求
 		        "ajax": {
 		        	//请求的数据源
-				    url: "${pageContext.request.contextPath}/video/findvideo",
+				    url: "${pageContext.request.contextPath}/video/chosevoide",
 				    //请求方式
 				    type: "post",
 					error: function (jqXHR, textStatus, errorMsg) {
@@ -96,12 +96,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			},{
     				"targets": 2,
       				"render": function(data, type, row, meta) {
-		            	 return '<button type="button" class="btn btn-blue"  onclick=\'deletbykey("'+row.id+'")\'>添加</button>';
+		            	 return '<button type="button" id='+row.id+' class="btn btn-blue"  onclick=\'Addtovideo("'+row.id+'","'+row.adminid+'")\'>添加</button>';
 		        	}
     			}     
            ],
             });
         } );
+    function Addtovideo(adminid){
+   
+         alert(adminid);
+         var v = parseUrl();//解析所有参数
+         alert(v['Screenid']);
+         
+    	 location.href="../jsp/addScreentb.jsp?adminid="+adminid;
+    }
 	function modify(id, password) {
     $.ajax({
         url: "modify.action",
@@ -120,6 +128,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
     })
 }
+function parseUrl(){
+                var url=location.href;
+                var i=url.indexOf('?');
+                if(i==-1)return;
+                var querystr=url.substr(i+1);
+                var arr1=querystr.split('&');
+                var arr2=new Object();
+                for  (i in arr1){
+                    var ta=arr1[i].split('=');
+                    arr2[ta[0]]=ta[1];
+                }
+                return arr2;
+         }
     </script>
 </head>
 <body class="page-body" data-url="http://www.poandsoul.com">

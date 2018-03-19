@@ -128,5 +128,8 @@
   <select id="selectAll"   resultType="com.soecode.lyf.entity.Nextbox" parameterType="java.lang.String" >
    select  *  from db_nextbox where adminId = #{adminid,jdbcType=VARCHAR}
   </select>
+  <select id="selectByadid"  resultType="java.lang.String"  parameterType="com.soecode.lyf.entity.Nextbox" >
+  	SELECT * FROM db_nextbox  where adminId in (#{adminid,jdbcType=VARCHAR},'1')
+  </select>
  
 </mapper>

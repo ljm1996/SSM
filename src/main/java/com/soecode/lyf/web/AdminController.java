@@ -47,7 +47,6 @@ public class AdminController {
 	    }
 	    @RequestMapping("/addagent")
 	    public @ResponseBody int addagent(Admin admin,String repassword,HttpServletRequest request){ 	
-	    	
 	    		return  adminService.insertAgent(admin);	
 	    }
 	   //登入
@@ -56,7 +55,11 @@ public class AdminController {
 	        Admin loginType = adminService.login(username,password);
 	        request.getSession().setAttribute("admin", loginType); 
 	        if(loginType.getIsenable()==0){
+	        	if(loginType.getType()==2){
 	            return 200;
+	        	}else {
+					return 300;
+				}
 	        }else if(loginType.getIsenable()==1){
 	           return 100;
 	        }else {

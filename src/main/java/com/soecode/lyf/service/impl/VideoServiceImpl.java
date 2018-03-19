@@ -36,5 +36,10 @@ public class VideoServiceImpl implements VideoService {
 		// TODO Auto-generated method stub
 		return videomapper.deleteByPrimaryKey(id);
 	}
+	@Override
+	public List<Video> selectchosevoide(Map<String, Object> videomap) {
+		// TODO Auto-generated method stub
+		return videomapper.selectchosevoide(videomap);
+	}
 
 }

@@ -90,20 +90,20 @@ var neonLogin = neonLogin || {};
 								{
 									$(".login-page").removeClass('logging-in');
 									neonLogin.resetProgressBar(true);
+								}else if(login_status == '300'){						
+									 window.location.href = "../jsp/homepage.jsp?type=1";
 								}
-								else
-								if(login_status == '200')
+								else if(login_status == '200')
 								{
 									// Redirect to login page
 									setTimeout(function()
 									{
 										 setTimeout(function()
 							                        {
-							                          window.location.href = "../jsp/homepage.jsp";
+							                          window.location.href = "../jsp/homepage.jsp?type=2";
 							                        }, 400);
 									}, 400);
-								}else
-								if(login_status=='100')
+								}else if(login_status=='100')
 								{
 									$(".login-page").removeClass('logging-in');
 									neonLogin.resetProgressBar(true);

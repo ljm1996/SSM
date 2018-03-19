@@ -39,8 +39,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									$('#tablebody').append("<tr><td>"+data[i].pix+"</td><td>"
 									+"<button type='button' class='btn btn-default' onclick=\"showAjaxModal('"+data[i].id+"','"+data[i].pix+"')\">修改</button>"
 									+"&nbsp<button type='button' class='btn btn-danger' onclick=\"deletbyscreenif('"+data[i].id+"')\">删除</button>"
-									+"&nbsp<button type='button' class='btn btn-blue' onclick='addvideo()'>添加视频</button>"
-									+"&nbsp<button type='button' class='btn btn-blue'>管理视频</button></td></tr>");		
+									+"&nbsp<button type='button' class='btn btn-blue' onclick=\"addvideo('"+data[i].id+"')\">添加视频</button>"
+									+"&nbsp<button type='button' class='btn btn-blue' onclick='Administrationvideo()'>管理视频</button></td></tr>");		
 								
 								}
 							},
@@ -50,8 +50,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						});
 		     
 		});
-		function addvideo(){
-		   location.href="../jsp/choesVido.jsp"
+		function Administrationvideo(){
+		var v = parseUrl();//解析所有参数
+		alert(v['adminid']);
+		}
+		function addvideo(Screenid){
+		 alert(Screenid);
+		   location.href="../jsp/choesVido.jsp?Screenid="+Screenid;
 		}
 		function deletbyscreenif(screenid){
 		 if (window.confirm('你确定删除吗？')) {
@@ -131,6 +136,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    }
 						});
 	}
+	function parseUrl(){
+                var url=location.href;
+                var i=url.indexOf('?');
+                if(i==-1)return;
+                var querystr=url.substr(i+1);
+                var arr1=querystr.split('&');
+                var arr2=new Object();
+                for  (i in arr1){
+                    var ta=arr1[i].split('=');
+                    arr2[ta[0]]=ta[1];
+                }
+                return arr2;
+         }
 	</script>
 </head>
 <body class="page-body" data-url="http://www.poandsoul.com">

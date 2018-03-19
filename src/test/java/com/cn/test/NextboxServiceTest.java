@@ -1,9 +1,6 @@
 package com.cn.test;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,11 +8,9 @@ import com.soecode.lyf.dao.GroupingMapper;
 import com.soecode.lyf.dao.MachineMapper;
 import com.soecode.lyf.dao.NextboxMapper;
 import com.soecode.lyf.dao.ScreenMapper;
-import com.soecode.lyf.entity.Admin;
-import com.soecode.lyf.entity.Grouping;
-import com.soecode.lyf.entity.Machine;
 import com.soecode.lyf.entity.Nextbox;
 import com.soecode.lyf.entity.Screen;
+import com.soecode.lyf.entity.Video;
 
 public class NextboxServiceTest extends BaseTest {
 	@Autowired
@@ -78,9 +73,12 @@ public class NextboxServiceTest extends BaseTest {
 //			screen.setPix("dsf");
 //			int a=map3.updateByPrimaryKeySelective(screen);
 //			System.out.println(a);
+//		
+//		List<Screen> list=map3.selectbymachineid(24);
+//		System.out.println(list.size());
 		
-		List<Screen> list=map3.selectbymachineid(24);
-		System.out.println(list.size());
+		List<Nextbox> a=ma.selectByadid("2");
+		System.out.println(a.size());
 		 
 		} 
 }

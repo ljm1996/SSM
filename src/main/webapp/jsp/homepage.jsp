@@ -30,22 +30,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 	<script type="text/javascript">
 		function tiaozhuang(theme,url){
-	$(".active").removeClass("active");
-	  if (theme != null) {
-	    var name = $(theme).parent().parent()[0].className;
-	    if (name != "main-menu") {
-	      $(theme).parent().parent().parent().addClass("active");
-	    }
-	    // main-menu
-	    $(theme).parent().addClass("active");
-	  }
-		if(url!=null||url!=""){
-		$("#theiframe").css("height","100%");
-		$("#theiframe").attr("src",url);
-		
-		}
-		
-		}
+		$(".active").removeClass("active");
+		  if (theme != null) {
+		    var name = $(theme).parent().parent()[0].className;
+		    if (name != "main-menu") {
+		      $(theme).parent().parent().parent().addClass("active");
+		    }
+		    // main-menu
+		    $(theme).parent().addClass("active");
+		  }
+			if(url!=null||url!=""){
+			$("#theiframe").css("height","100%");
+			$("#theiframe").attr("src",url);
+			var v = parseUrl();
+			}
+			}
+	 $(function(){  
+			   var v = parseUrl();
+			   var gettype=v['type']; 
+			   if(gettype=='2'){
+			   	$('#hideagent').hide();
+			   	$('#macineli').hide();
+			   }else if(gettype==1){
+			  		return null;
+			   }   
+		});  
+	function parseUrl(){
+                var url=location.href;
+                var i=url.indexOf('?');
+                if(i==-1)return;
+                var querystr=url.substr(i+1);
+                var arr1=querystr.split('&');
+                var arr2=new Object();
+                for  (i in arr1){
+                    var ta=arr1[i].split('=');
+                    arr2[ta[0]]=ta[1];
+                }
+                return arr2;
+         }
 	</script>
 
 <body class="page-body  loaded" data-url="http://neon.dev">
@@ -77,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				</header>
 				<ul id="main-menu" class="main-menu">
-					<li class="active active has-sub root-level">
+					<li class="active active has-sub root-level" id="hideagent">
 					<a href="../forms-main.html">
 						<i class="entypo-doc-text"></i>
 						<span class="title">代理商管理</span>
@@ -105,16 +127,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<ul>
 						<li>
 							<a onclick="tiaozhuang(this,'video.jsp')" href="javascript:void(0)">
-								<span class="title">上传视屏</span>
+								<span class="title">上传视频</span>
 							</a>
 						</li>
 						<li>
 							<a onclick="tiaozhuang(this,'vidocontrol.jsp')" href="javascript:void(0)">
-								<span class="title">查询视屏</span>
+								<span class="title">查询视频</span>
 							</a>
 						</li>	
 					</ul>
 				</li>
+				
 				    <li class="has-sub">
 					<a href="../forms-main.html">
 						<i class="entypo-doc-text"></i>
@@ -140,6 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span class="title">机器管理</span>
 					</a>
 					<ul>
+					<div id="macineli">
 						<li>
 							<a onclick="tiaozhuang(this,'addmechanicaltb.jsp')" href="javascript:void(0)">
 								<span class="title">新建机器</span>
@@ -149,7 +173,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a onclick="tiaozhuang(this,' inquermachine.jsp')" href="javascript:void(0)" >
 								<span class="title">查询机器</span>
 							</a>
-						</li>	
+						</li>
+						</div>	
 						<li>
 							<a onclick="tiaozhuang(this,'actionmechanical.jsp')" href="javascript:void(0)" >
 								<span class="title">激活机器</span>

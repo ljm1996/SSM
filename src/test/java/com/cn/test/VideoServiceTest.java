@@ -26,13 +26,13 @@ public class VideoServiceTest extends BaseTest {
 //		int a=ma.totalVideo("1");
 //		logger.debug("查找结果" + a);
 		
-		Map<String, Object> map= new HashMap<String, Object>();
-	    map.put("videoname", "电饭锅");
-	    map.put("adminid", "1");
-		map.put("pageSize", 0);
-		map.put("currentPage", 5);
-		List<Video> list=ma.selectByVideoName(map);
-		System.out.println("video结果" + list.size());
+//		Map<String, Object> map= new HashMap<String, Object>();
+//	    map.put("videoname", "");
+//	    map.put("adminid", null);
+//		map.put("pageSize", 0);
+//		map.put("currentPage", 5);
+//		List<Video> list=ma.selectByVideoName(map);
+//		System.out.println("video结果" + list.size());
 		
 //		Video video=new Video();
 //		video.setVideoname("dkdk");
@@ -40,6 +40,8 @@ public class VideoServiceTest extends BaseTest {
 //		video.setVideourl("fhhghf");
 //		int a1=ma.insertSelective(video);
 //		System.out.println(a1);
+		
+	
 		
 		
 		

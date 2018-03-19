@@ -16,6 +16,9 @@ public interface NextboxMapper {
     int updateByPrimaryKey(Nextbox record);
 
     List<Nextbox> selectAll(String adminid);
+    
+    List<Nextbox> selectByadid(String adminid);
+    
 
     
 }

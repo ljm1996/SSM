@@ -123,4 +123,8 @@
   <select id="selectByVideoName" parameterType="map"  resultMap="BaseResultMap">
   	 SELECT * FROM db_video  where adminId LIKE '%${adminid}%' and videoName LIKE '%${videoname}%'  limit #{pageSize},#{currentPage}
   </select>
+  
+    <select id="selectchosevoide" parameterType="map"  resultMap="BaseResultMap">
+  	 SELECT * FROM db_video  where adminId in (#{adminid,jdbcType=VARCHAR},'1') and videoName LIKE '%${videoname}%'  limit #{pageSize},#{currentPage}
+  </select>
 </mapper>

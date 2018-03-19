@@ -25,6 +25,8 @@ public class NextboxController {
 	 @RequestMapping("/insertNextbox")
 	 @ResponseBody 
 	 public int insertNextbox(Nextbox nextbox){
+		Admin admin = (Admin)session.getAttribute("admin");
+		nextbox.setAdminid(admin.getId()+"");
 		return nextboxService.insertNextbox(nextbox);
 		 
 	 }

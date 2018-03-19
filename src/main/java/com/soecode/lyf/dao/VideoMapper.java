@@ -24,5 +24,6 @@ public interface VideoMapper {
     
     List<Video> selectByVideoName(Map<String, Object> videomap);
     
-    List<Video> selectByVideoadmin(Map<String, Object> videomap);
+    List<Video> selectchosevoide(Map<String, Object> videomap);
+    
 }
