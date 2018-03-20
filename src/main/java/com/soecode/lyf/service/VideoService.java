@@ -12,5 +12,6 @@ public interface VideoService {
    int totalVideo(@Param("videoname") String videoname);
    List<Video> selectByVideoName(Map<String, Object> videomap);
    List<Video> selectchosevoide(Map<String, Object> videomap);
+   List<Video> selectbyvideoid(Map<String, Object> videomap);
    int deletvideoBykey(Integer id );
 }

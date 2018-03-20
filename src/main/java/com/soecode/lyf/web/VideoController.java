@@ -148,6 +148,18 @@ public class VideoController{
  			adminlisTableDataSource.setDraw(draw);
  			adminlisTableDataSource.setRecordsFiltered(countAdmin);
  			adminlisTableDataSource.setRecordsTotal(countAdmin);
+		}else if(admin.getType()==1){
+			Map<String, Object> videomap= new HashMap<String, Object>();
+ 	        videomap.put("videoname", search);
+ 	        videomap.put("adminid", adminid);
+ 	        videomap.put("pageSize", start);
+ 	        videomap.put("currentPage", length);
+ 			List<Video> listadmin=videoService.selectchosevoide(videomap);
+ 			adminlisTableDataSource.setData(listadmin);
+ 			adminlisTableDataSource.setDraw(draw);
+ 			adminlisTableDataSource.setRecordsFiltered(countAdmin);
+ 			adminlisTableDataSource.setRecordsTotal(countAdmin);
+			
 		}
 		return adminlisTableDataSource;
     	    	

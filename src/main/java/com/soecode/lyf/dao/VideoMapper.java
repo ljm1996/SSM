@@ -26,4 +26,6 @@ public interface VideoMapper {
     
     List<Video> selectchosevoide(Map<String, Object> videomap);
     
+    List<Video> selectbyvideoid(Map<String, Object> videomap);
+    
 }

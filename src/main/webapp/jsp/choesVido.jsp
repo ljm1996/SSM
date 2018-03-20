@@ -96,19 +96,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			},{
     				"targets": 2,
       				"render": function(data, type, row, meta) {
-		            	 return '<button type="button" id='+row.id+' class="btn btn-blue"  onclick=\'Addtovideo("'+row.id+'","'+row.adminid+'")\'>添加</button>';
+		            	 return '<button type="button" id='+row.id+' class="btn btn-blue"  onclick=\'Addtovideo("'+row.id+'")\'>添加</button>';
 		        	}
     			}     
            ],
             });
         } );
-    function Addtovideo(adminid){
-   
-         alert(adminid);
+    function Addtovideo(videoid){
+         alert(videoid);
          var v = parseUrl();//解析所有参数
-         alert(v['Screenid']);
-         
-    	 location.href="../jsp/addScreentb.jsp?adminid="+adminid;
+         $.ajax({
+						url:'${pageContext.request.contextPath}/screenvideo/inserscreenvideo',
+						method:'post',
+						data:{
+							videoid:videoid,
+							screenid:v['screenid']
+						},　
+						success: function(response){
+									alert("添加成功！");
+									location.href="../jsp/addScreentb.jsp?videoid="+videoid+"&machineid="+v['machineid'];	
+								},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+						      alert(XMLHttpRequest.status); 
+						    }
+						});
     }
 	function modify(id, password) {
     $.ajax({

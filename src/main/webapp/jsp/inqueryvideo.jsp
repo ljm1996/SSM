@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="../media/css/jquery.dataTables.css">
 	
 	<!-- jQuery -->
-	<script type="text/javascript" charset="utf8" src="../.media/js/jquery.js"></script>
+	<script type="text/javascript" charset="utf8" src="../media/js/jquery.js"></script>
 	
 	<!-- DataTables -->
 	<script type="text/javascript" charset="utf8" src="../media/js/jquery.dataTables.js"></script>
@@ -45,8 +45,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" charset="utf8" src="../media/js/jquery.dataTables.js"></script>
 
  <script>
-        <!--第三步：初始化Datatables-->
+         <!--第三步：初始化Datatables-->
          $(document).ready( function () {
+         var v = parseUrl();//解析所有参数
            var table =  $('#table_id_example').DataTable({
                language: {
                    url:"zh_CN.txt"
@@ -70,9 +71,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  //使用ajax异步请求
 		        "ajax": {
 		        	//请求的数据源
-				    url: "${pageContext.request.contextPath}/video/chosevoide",
+				    url: "${pageContext.request.contextPath}/screenvideo/selectbyscreenid",
 				    //请求方式
 				    type: "post",
+				    data:{screenid:v['screenid']},
 					error: function (jqXHR, textStatus, errorMsg) {
                     alert("请求失败");
                 }
@@ -96,15 +98,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			},{
     				"targets": 2,
       				"render": function(data, type, row, meta) {
-		            	 return '<button type="button" class="btn btn-red"  '>'+
-		            	 '删除<button type="button" class="btn btn-blue"  >'+
-		            	 '下载图片</button>&nbsp<button type="button" class="btn btn-blue"  onclick=\'deletbykey("'+row.id+'")\'>下载视频'+
-		            	 '</button>';
+		            	 return '<button type="button"  class="btn btn-red"  onclick=\'deletaddvideo("'+row.id+'")\'>删除</button>'
+		            	 +'&nbsp<button type="button"  class="btn btn-blue"  onclick=\'Addtovideo("'+row.id+'")\'>下载图片</button>'
+		            	 +'&nbsp<button type="button"  class="btn btn-blue"  onclick=\'Addtovideo("'+row.id+'")\'>下载视频</button>';
 		        	}
     			}     
            ],
             });
         } );
+    function deletaddvideo(screenvideoid){
+    alert(screenvideoid)
+     if (window.confirm('你确定删除吗？')) {
+         var v = parseUrl();//解析所有参数
+         $.ajax({
+				url:'${pageContext.request.contextPath}/screenvideo/deletbyscreenid',
+				method:'post',
+				data:{
+					screenvideoid:screenvideoid
+					},　
+				success: function(response){
+						location.reload();	
+					},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+						 alert(XMLHttpRequest.status); 
+					}
+				});
+			}else{
+				alert("取消");
+			}
+    }
 	function modify(id, password) {
     $.ajax({
         url: "modify.action",
@@ -114,8 +136,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         },
         success: function(data) {
             if (data.flag) {
-                //如果后台修改成功，则刷新表格，并提示用户修改成功
-
                 //保留分页信息
                 table.ajax.reload(null, false);
                 alert(password + data.msg);
@@ -123,6 +143,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
     })
 }
+   function parseUrl(){
+                var url=location.href;
+                var i=url.indexOf('?');
+                if(i==-1)return;
+                var querystr=url.substr(i+1);
+                var arr1=querystr.split('&');
+                var arr2=new Object();
+                for  (i in arr1){
+                    var ta=arr1[i].split('=');
+                    arr2[ta[0]]=ta[1];
+                }
+                return arr2;
+         }
+        
     </script>
 </head>
 <body class="page-body" data-url="http://www.poandsoul.com">
@@ -175,9 +209,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="../assets/js/neon-chat.js"></script>
 
 
-	<!-- JavaScripts initializations and stuff -->
+	<!-- JavaScripts initializations and stuff 
 	<script src="../assets/js/neon-custom.js"></script>
-	<!--<script src="../assets/js/messages_cn.js"></script>-->
+	<script src="../assets/js/messages_cn.js"></script>-->
 
 
 	<!-- Demo Settings -->

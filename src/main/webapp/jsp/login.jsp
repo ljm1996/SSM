@@ -86,9 +86,9 @@ var baseurl = '';
 		
 		<div class="login-content">
 			
-			<div class="form-login-error">
-				<h3>Invalid login</h3>
-				<p>Enter <strong>demo</strong>/<strong>demo</strong> as login and password.</p>
+			<div class="form-login-error" >
+				<h3>提示</h3>
+				<p><strong>账号或密码错误</strong></p>
 			</div>
 			
 			<form method="post" role="form" id="form_login" novalidate="novalidate">

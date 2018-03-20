@@ -24,14 +24,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="../assets/js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
 		jQuery(function($) { 
-			  var loc = location.href;
-			  var n1 = loc.length;//地址的总长度
-			  var n2 = loc.indexOf("=");//取得=号的位置
-			  var id = decodeURI(loc.substr(n2+1, n1-n2));//从=号后面的内容	  
+			  var v = parseUrl();//解析所有参数	
 			  $.ajax({
 						url:'${pageContext.request.contextPath}/screen/selectbymachienid',
   						data:{
-						 machineid:id
+						 machineid:v['machineid']
 						},
 						success: function(data){
 							$('#tablebody').empty();
@@ -40,8 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									+"<button type='button' class='btn btn-default' onclick=\"showAjaxModal('"+data[i].id+"','"+data[i].pix+"')\">修改</button>"
 									+"&nbsp<button type='button' class='btn btn-danger' onclick=\"deletbyscreenif('"+data[i].id+"')\">删除</button>"
 									+"&nbsp<button type='button' class='btn btn-blue' onclick=\"addvideo('"+data[i].id+"')\">添加视频</button>"
-									+"&nbsp<button type='button' class='btn btn-blue' onclick='Administrationvideo()'>管理视频</button></td></tr>");		
-								
+									+"&nbsp<button type='button' class='btn btn-blue' onclick=\"Administrationvideo('"+data[i].id+"')\">管理视频</button></td></tr>");		
 								}
 							},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -50,13 +46,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						});
 		     
 		});
-		function Administrationvideo(){
-		var v = parseUrl();//解析所有参数
-		alert(v['adminid']);
+		function Administrationvideo(screenid){
+			var v = parseUrl();//解析所有参数
+			location.href="../jsp/inqueryvideo.jsp?videoid="+v['videoid']+"&screenid="+screenid;
 		}
-		function addvideo(Screenid){
-		 alert(Screenid);
-		   location.href="../jsp/choesVido.jsp?Screenid="+Screenid;
+		function addvideo(screenid){
+		   var v = parseUrl();//解析所有参数
+		   location.href="../jsp/choesVido.jsp?machineid="+v['machineid']+"&screenid="+screenid;
 		}
 		function deletbyscreenif(screenid){
 		 if (window.confirm('你确定删除吗？')) {
@@ -65,6 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						method:'post',
 						data:{
 							screenid:screenid,
+							
 						},　
 						success: function(response){
 									alert("删除成功！");
@@ -79,10 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}                     
 		}  
 		function addscreen(){
-		 	  var loc = location.href;
-			  var n1 = loc.length;//地址的总长度
-			  var n2 = loc.indexOf("=");//取得=号的位置
-			  var id = decodeURI(loc.substr(n2+1, n1-n2));//从=号后面的内容	
+		 	  var v = parseUrl();//解析所有参数	
 			  var pix=$('#pix').val();
 			  if(pix==""){
 			        alert("输入为空");
@@ -91,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						url:'${pageContext.request.contextPath}/screen/addscreen',
 						method:'post',
 						data:{
-							machineid:id,
+							machineid:v['machineid'],
 							pix:pix
 						},　
 						success: function(response){
@@ -108,7 +102,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	function showAjaxModal(screenid,pix)
 		{
-		  
 		    $('#goupingId').val(screenid);
 		    $('#Pix').val(pix);
 		      $('#hiddenid').hide();

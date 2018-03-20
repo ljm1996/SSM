@@ -126,5 +126,8 @@
   
     <select id="selectchosevoide" parameterType="map"  resultMap="BaseResultMap">
   	 SELECT * FROM db_video  where adminId in (#{adminid,jdbcType=VARCHAR},'1') and videoName LIKE '%${videoname}%'  limit #{pageSize},#{currentPage}
-  </select>
+    </select>
+     <select id="selectbyvideoid" parameterType="map"  resultMap="BaseResultMap">
+  	 SELECT * FROM db_video  where  id in(select videoid from db_screenvideo where screenid = #{screenid,jdbcType=INTEGER}) and videoName LIKE '%${videoname}%'  limit #{pageSize},#{currentPage}
+    </select>
 </mapper>

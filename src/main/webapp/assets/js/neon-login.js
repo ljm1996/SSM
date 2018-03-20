@@ -70,7 +70,8 @@ var neonLogin = neonLogin || {};
 						},
 						error: function()
 						{
-							alert("An error occoured!");
+							$(".login-page").removeClass('logging-in');
+							 neonLogin.resetProgressBar(true);
 						},
 						success: function(response)
 						{

@@ -37,6 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<![endif]-->
 	
 	<script type="text/javascript">
+	
 		$(function(){ 
 			　　     $.ajax({
 					url:'${pageContext.request.contextPath}/nextbox/selectall',
@@ -151,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 	function tiaozhuan(machineid){
-	   location.href="../jsp/addScreentb.jsp?"+"date="+machineid;
+	   location.href="../jsp/addScreentb.jsp?"+"machineid="+machineid;
 	}
    	</script>
 	</head>

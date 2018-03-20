@@ -133,28 +133,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					 }
 				});
 			}
-		function deletbymachinekey(id)
-		{
-		 if (window.confirm('你确定删除吗？')) {
-			jQuery.ajax({
-					url: '${pageContext.request.contextPath}/machine/deletbykey',
-					method:'post',
-					data:{machineid:id},
-					success: function(response)
-					{   
-						alert("删除成功！");
-						location.reload();
-						
-					},
-					error : function(XMLHttpRequest, textStatus, errorThrown) { 
-						alert("删除失败！");
-								         		
-					 }
-				});
-			}else{
-						alert("取消");
-			}
-		}
     </script>
 </head>
 <body class="page-body" data-url="http://www.poandsoul.com">

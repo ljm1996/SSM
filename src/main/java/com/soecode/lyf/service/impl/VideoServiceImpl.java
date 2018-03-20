@@ -41,5 +41,10 @@ public class VideoServiceImpl implements VideoService {
 		// TODO Auto-generated method stub
 		return videomapper.selectchosevoide(videomap);
 	}
+	@Override
+	public List<Video> selectbyvideoid(Map<String, Object> videomap) {
+		// TODO Auto-generated method stub
+		return videomapper.selectbyvideoid(videomap);
+	}
 
 }
