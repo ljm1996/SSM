@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.soecode.lyf.dao.VideoMapper" >
+  <resultMap id="BaseResultMap" type="com.soecode.lyf.entity.Video" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="adminId" property="adminid" jdbcType="VARCHAR" />
+    <result column="videoName" property="videoname" jdbcType="VARCHAR" />
+    <result column="videoUrl" property="videourl" jdbcType="VARCHAR" />
+    <result column="videoImgUrl" property="videoimgurl" jdbcType="VARCHAR" />
+    <result column="greatTime" property="greattime" jdbcType="TIMESTAMP" />
+    <result column="isEenable" property="iseenable" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, adminId, videoName, videoUrl, videoImgUrl, greatTime, isEenable
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_video
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_video
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.lyf.entity.Video" >
+    insert into db_video (id, adminId, videoName, 
+      videoUrl, videoImgUrl, greatTime, 
+      isEenable)
+    values (#{id,jdbcType=INTEGER}, #{adminid,jdbcType=VARCHAR}, #{videoname,jdbcType=VARCHAR}, 
+      #{videourl,jdbcType=VARCHAR}, #{videoimgurl,jdbcType=VARCHAR}, #{greattime,jdbcType=TIMESTAMP}, 
+      #{iseenable,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.lyf.entity.Video" >
+    insert into db_video
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="adminid != null" >
+        adminId,
+      </if>
+      <if test="videoname != null" >
+        videoName,
+      </if>
+      <if test="videourl != null" >
+        videoUrl,
+      </if>
+      <if test="videoimgurl != null" >
+        videoImgUrl,
+      </if>
+      <if test="greattime != null" >
+        greatTime,
+      </if>
+      <if test="iseenable != null" >
+        isEenable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adminid != null" >
+        #{adminid,jdbcType=VARCHAR},
+      </if>
+      <if test="videoname != null" >
+        #{videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="videourl != null" >
+        #{videourl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoimgurl != null" >
+        #{videoimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="greattime != null" >
+        #{greattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iseenable != null" >
+        #{iseenable,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.lyf.entity.Video" >
+    update db_video
+    <set >
+      <if test="adminid != null" >
+        adminId = #{adminid,jdbcType=VARCHAR},
+      </if>
+      <if test="videoname != null" >
+        videoName = #{videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="videourl != null" >
+        videoUrl = #{videourl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoimgurl != null" >
+        videoImgUrl = #{videoimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="greattime != null" >
+        greatTime = #{greattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iseenable != null" >
+        isEenable = #{iseenable,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soecode.lyf.entity.Video" >
+    update db_video
+    set adminId = #{adminid,jdbcType=VARCHAR},
+      videoName = #{videoname,jdbcType=VARCHAR},
+      videoUrl = #{videourl,jdbcType=VARCHAR},
+      videoImgUrl = #{videoimgurl,jdbcType=VARCHAR},
+      greatTime = #{greattime,jdbcType=TIMESTAMP},
+      isEenable = #{iseenable,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="totalVideo" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM db_video
+		 WHERE videoName LIKE '%${videoname}%'   
+  </select>
+  <select id="selectByVideoName" parameterType="map"  resultMap="BaseResultMap">
+  	 SELECT * FROM db_video  where adminId LIKE '%${adminid}%' and videoName LIKE '%${videoname}%'  limit #{pageSize},#{currentPage}
+  </select>
+  
+    <select id="selectchosevoide" parameterType="map"  resultMap="BaseResultMap">
+  	 SELECT * FROM db_video  where adminId in (#{adminid,jdbcType=VARCHAR},'1') and videoName LIKE '%${videoname}%'  limit #{pageSize},#{currentPage}
+    </select>
+     <select id="selectbyvideoid" parameterType="map"  resultMap="BaseResultMap">
+  	 SELECT * FROM db_video  where  id in(select videoid from db_screenvideo where screenid = #{screenid,jdbcType=INTEGER}) and videoName LIKE '%${videoname}%'  limit #{pageSize},#{currentPage}
+    </select>
+</mapper>

@@ -53,7 +53,7 @@ public class VideoServiceTest extends BaseTest {
 //		//List<Video> list=ma.selectbyvideoid(videomap)
 //		System.out.println(screenVideo.getVideoid());
 //		
-		int a =ma1.deleteByPrimaryKey(5);
+		int a =ma1.deleteByPrimaryKey(1);
 		System.out.println(a);
 		
 	}

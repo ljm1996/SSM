@@ -99,15 +99,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				"targets": 2,
       				"render": function(data, type, row, meta) {
 		            	 return '<button type="button"  class="btn btn-red"  onclick=\'deletaddvideo("'+row.id+'")\'>删除</button>'
-		            	 +'&nbsp<button type="button"  class="btn btn-blue"  onclick=\'Addtovideo("'+row.id+'")\'>下载图片</button>'
-		            	 +'&nbsp<button type="button"  class="btn btn-blue"  onclick=\'Addtovideo("'+row.id+'")\'>下载视频</button>';
+		            	 +'&nbsp<a  class="btn btn-blue"  href="../video/downimg?videoid='+row.id+'">下载图片</a>'
+		            	 +'&nbsp<a  class="btn btn-blue"  href="../video/downvideo?videoid='+row.id+'">下载视频</a>';
 		        	}
     			}     
            ],
             });
         } );
-    function deletaddvideo(screenvideoid){
-    alert(screenvideoid)
+    function deletaddvideo(videoid){
      if (window.confirm('你确定删除吗？')) {
          var v = parseUrl();//解析所有参数
          $.ajax({

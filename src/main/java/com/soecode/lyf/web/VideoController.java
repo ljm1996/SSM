@@ -1,7 +1,12 @@
 package com.soecode.lyf.web;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,9 +15,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +41,6 @@ public class VideoController{
 	VideoService videoService;
 	@Autowired
 	HttpSession session;
-
 	 /**  
      * 视屏上传  
      * @param file  
@@ -87,6 +95,96 @@ public class VideoController{
         
         return pathcode;  
     } 
+    /**  
+     * 图片下载下载功能  
+     * @param request  
+     * @param response  
+     * @throws Exception  
+     */  
+	@RequestMapping("/downimg")  
+    @ResponseBody
+    public void downimg(Integer videoid,HttpServletRequest request,HttpServletResponse response) throws Exception{  
+		Video video=videoService.selectbyvideoid(videoid);
+        String imgurl = video.getVideoimgurl().trim();  
+        String imgname = imgurl.substring(imgurl.lastIndexOf("/")+1);  
+        
+    	//模拟文件，myfile.txt为需要下载的文件  
+        String imgpath = request.getSession().getServletContext().getRealPath("imgupload")+"\\"+imgname;  
+        //获取输入流  
+        InputStream bis = new BufferedInputStream(new FileInputStream(new File(imgpath))); 
+        try {
+        	 System.out.println(bis);
+             //假如以中文名下载的话  
+             String filename = imgname;  
+             //转码，免得文件名中文乱码  
+             filename = URLEncoder.encode(filename,"UTF-8");  
+             //设置文件下载头  
+             response.addHeader("Content-Disposition", "attachment;filename=" + filename);    
+             //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型    
+             response.setContentType("multipart/form-data");   
+             BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());  
+             int len = 0;  
+             while((len = bis.read()) != -1){  
+                    out.write(len); 
+                     out.flush();  
+                 }
+                  out.close();   
+		} finally {
+			// TODO: handle finally clause
+			bis.close();
+		}
+       
+    } 
+	 /**  
+     * 视频下载功能  
+     * @param request  
+     * @param response  
+     * @throws Exception  
+     */  
+	@RequestMapping("/downvideo")  
+    @ResponseBody
+    public void downvideo(Integer videoid,HttpServletRequest request,HttpServletResponse response) throws Exception{  
+		Video video=videoService.selectbyvideoid(videoid);
+        String imgurl = video.getVideourl().trim();  
+        String imgname = imgurl.substring(imgurl.lastIndexOf("/")+1);  
+        
+    	//模拟文件，myfile.txt为需要下载的文件  
+        String imgpath = request.getSession().getServletContext().getRealPath("videoupload")+"\\"+imgname;  
+        //获取输入流  
+        InputStream bis = new BufferedInputStream(new FileInputStream(new File(imgpath))); 
+        try {
+        	 System.out.println(bis);
+             //假如以中文名下载的话  
+             String filename = imgname;  
+             //转码，免得文件名中文乱码  
+             filename = URLEncoder.encode(filename,"UTF-8");  
+             //设置文件下载头  
+             response.addHeader("Content-Disposition", "attachment;filename=" + filename);    
+             //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型    
+             response.setContentType("multipart/form-data");   
+             BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());  
+             int len = 0;  
+             while((len = bis.read()) != -1){  
+                    out.write(len); 
+                     out.flush();  
+                 }
+                  out.close();   
+		} finally {
+			// TODO: handle finally clause
+			bis.close();
+		}
+       
+    } 
+        
+    
+    /**
+     * 查询视频
+     * @param draw
+     * @param length
+     * @param start
+     * @param request
+     * @return
+     */
     @RequestMapping("/findvideo")
     @ResponseBody
     public DataTableDataSource<Video> inquervideo(String draw,Integer length,Integer start,HttpServletRequest request){
@@ -163,6 +261,5 @@ public class VideoController{
 		}
 		return adminlisTableDataSource;
     	    	
-    }
-    
+    }  
 }
